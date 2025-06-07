@@ -1,4 +1,4 @@
-import { GPUSpec, TPUSpec } from '../types/hardware';
+import { GPUSpec, TPUSpec, PTUSpec } from '../types/hardware';
 
 export const gpuDatabase: GPUSpec[] = [
   {
@@ -124,5 +124,73 @@ export const tpuDatabase: TPUSpec[] = [
     cloudProviders: [
       { name: 'GCP', instanceType: 'v3-8', pricePerHour: 2.40, availability: ['us-central1', 'europe-west1'] }
     ]
+  }
+];
+
+export const ptuDatabase: PTUSpec[] = [
+  {
+    id: 'gpt-4o',
+    name: 'GPT-4o',
+    modelType: 'GPT-4o',
+    version: '2024-08-06',
+    contextLength: 128000,
+    ptuCapacity: 100,
+    tokensPerMinute: 30000,
+    maxTokensPerRequest: 16384,
+    pricePerPTUPerHour: 18.00,
+    regions: ['East US', 'West US 2', 'West Europe', 'UK South', 'Australia East'],
+    features: ['Vision', 'Function Calling', 'JSON Mode', 'Reproducible Outputs']
+  },
+  {
+    id: 'gpt-4o-mini',
+    name: 'GPT-4o Mini',
+    modelType: 'GPT-4o-mini',
+    version: '2024-07-18',
+    contextLength: 128000,
+    ptuCapacity: 100,
+    tokensPerMinute: 200000,
+    maxTokensPerRequest: 16384,
+    pricePerPTUPerHour: 5.40,
+    regions: ['East US', 'West US 2', 'West Europe', 'UK South', 'Sweden Central'],
+    features: ['Vision', 'Function Calling', 'JSON Mode', 'Reproducible Outputs']
+  },
+  {
+    id: 'gpt-4-turbo',
+    name: 'GPT-4 Turbo',
+    modelType: 'GPT-4-Turbo',
+    version: '2024-04-09',
+    contextLength: 128000,
+    ptuCapacity: 100,
+    tokensPerMinute: 30000,
+    maxTokensPerRequest: 4096,
+    pricePerPTUPerHour: 36.00,
+    regions: ['East US', 'West US', 'West Europe', 'UK South'],
+    features: ['Vision', 'Function Calling', 'JSON Mode']
+  },
+  {
+    id: 'gpt-4',
+    name: 'GPT-4',
+    modelType: 'GPT-4',
+    version: '0613',
+    contextLength: 8192,
+    ptuCapacity: 100,
+    tokensPerMinute: 10000,
+    maxTokensPerRequest: 8192,
+    pricePerPTUPerHour: 45.00,
+    regions: ['East US', 'West Europe'],
+    features: ['Function Calling']
+  },
+  {
+    id: 'gpt-35-turbo',
+    name: 'GPT-3.5 Turbo',
+    modelType: 'GPT-3.5-Turbo',
+    version: '0125',
+    contextLength: 16385,
+    ptuCapacity: 100,
+    tokensPerMinute: 120000,
+    maxTokensPerRequest: 4096,
+    pricePerPTUPerHour: 5.00,
+    regions: ['East US', 'West US 2', 'West Europe', 'UK South', 'Australia East', 'Canada East'],
+    features: ['Function Calling', 'JSON Mode']
   }
 ];

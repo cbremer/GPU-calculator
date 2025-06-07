@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import HardwareCard from './components/HardwareCard';
+import PTUCard from './components/PTUCard';
 import Calculator from './components/Calculator';
 import ComparisonTable from './components/ComparisonTable';
-import { gpuDatabase, tpuDatabase } from './data/hardware';
-import { GPUSpec, TPUSpec } from './types/hardware';
-import { Cpu, Zap, BarChart3, Calculator as CalcIcon } from 'lucide-react';
+import { gpuDatabase, tpuDatabase, ptuDatabase } from './data/hardware';
+import { GPUSpec, TPUSpec, PTUSpec } from './types/hardware';
+import { Cpu, Zap, BarChart3, Calculator as CalcIcon, Brain } from 'lucide-react';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'gpu' | 'tpu'>('gpu');
-  const [selectedHardware, setSelectedHardware] = useState<(GPUSpec | TPUSpec)[]>([]);
+  const [activeTab, setActiveTab] = useState<'gpu' | 'tpu' | 'ptu'>('gpu');
+  const [selectedHardware, setSelectedHardware] = useState<(GPUSpec | TPUSpec | PTUSpec)[]>([]);
   const [viewMode, setViewMode] = useState<'browse' | 'calculate' | 'compare'>('browse');
 
-  const currentDatabase = activeTab === 'gpu' ? gpuDatabase : tpuDatabase;
+  const getCurrentDatabase = () => {
+    switch (activeTab) {
+      case 'gpu': return gpuDatabase;
+      case 'tpu': return tpuDatabase;
+      case 'ptu': return ptuDatabase;
+    }
+  };
 
-  const handleHardwareSelect = (hardware: GPUSpec | TPUSpec) => {
+  const handleHardwareSelect = (hardware: GPUSpec | TPUSpec | PTUSpec) => {
     setSelectedHardware(prev => {
       const exists = prev.find(h => h.id === hardware.id);
       if (exists) {
@@ -28,6 +35,8 @@ function App() {
   const clearSelection = () => {
     setSelectedHardware([]);
   };
+
+  const currentDatabase = getCurrentDatabase();
 
   return (
     <div className="min-h-screen bg-slate-900">
@@ -58,6 +67,17 @@ function App() {
             >
               <Zap className="h-4 w-4" />
               <span>TPUs</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('ptu')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center space-x-2 ${
+                activeTab === 'ptu'
+                  ? 'bg-purple-600 text-white'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <Brain className="h-4 w-4" />
+              <span>PTUs</span>
             </button>
           </div>
 
@@ -115,19 +135,28 @@ function App() {
         {viewMode === 'browse' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentDatabase.map((hardware) => (
-              <HardwareCard
-                key={hardware.id}
-                hardware={hardware}
-                type={activeTab}
-                onSelect={handleHardwareSelect}
-                isSelected={selectedHardware.some(h => h.id === hardware.id)}
-              />
+              activeTab === 'ptu' ? (
+                <PTUCard
+                  key={hardware.id}
+                  ptu={hardware as PTUSpec}
+                  onSelect={handleHardwareSelect}
+                  isSelected={selectedHardware.some(h => h.id === hardware.id)}
+                />
+              ) : (
+                <HardwareCard
+                  key={hardware.id}
+                  hardware={hardware as GPUSpec | TPUSpec}
+                  type={activeTab as 'gpu' | 'tpu'}
+                  onSelect={handleHardwareSelect}
+                  isSelected={selectedHardware.some(h => h.id === hardware.id)}
+                />
+              )
             ))}
           </div>
         )}
 
         {viewMode === 'calculate' && (
-          <Calculator selectedHardware={selectedHardware} />
+          <Calculator selectedHardware={selectedHardware} activeTab={activeTab} />
         )}
 
         {viewMode === 'compare' && (

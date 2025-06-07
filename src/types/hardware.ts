@@ -30,6 +30,20 @@ export interface TPUSpec {
   cloudProviders: CloudProvider[];
 }
 
+export interface PTUSpec {
+  id: string;
+  name: string;
+  modelType: 'GPT-3.5-Turbo' | 'GPT-4' | 'GPT-4-Turbo' | 'GPT-4o' | 'GPT-4o-mini';
+  version: string;
+  contextLength: number; // tokens
+  ptuCapacity: number; // PTUs
+  tokensPerMinute: number; // TPM
+  maxTokensPerRequest: number;
+  pricePerPTUPerHour: number; // USD
+  regions: string[];
+  features: string[];
+}
+
 export interface CloudProvider {
   name: 'AWS' | 'GCP' | 'Azure' | 'Oracle';
   instanceType: string;
@@ -41,10 +55,12 @@ export interface CloudProvider {
 export interface CalculationResult {
   totalCost: number;
   performanceMetrics: {
-    totalFLOPS: number;
-    totalMemory: number;
-    totalBandwidth: number;
+    totalFLOPS?: number;
+    totalMemory?: number;
+    totalBandwidth?: number;
     efficiencyScore: number;
+    totalTPM?: number; // For PTUs
+    totalPTUs?: number; // For PTUs
   };
   scalingRecommendations: string[];
   bottlenecks: string[];
