@@ -13,7 +13,7 @@ const Header: React.FC = () => {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-white">GPU, TPU & PTU Calculator</h1>
-            <p className="text-slate-400 text-sm">Distributed Systems & AI Workload Planning</p>
+            <p className="text-slate-400 text-sm">Distributed Systems & AI Workload Planning (updated for 2026)</p>
           </div>
         </div>
       </div>

@@ -2,6 +2,45 @@ import { GPUSpec, TPUSpec, PTUSpec } from '../types/hardware';
 
 export const gpuDatabase: GPUSpec[] = [
   {
+    id: 'b200',
+    name: 'B200 SXM',
+    manufacturer: 'NVIDIA',
+    memory: 192,
+    memoryBandwidth: 8000,
+    computeUnits: 208,
+    baseClock: 1200,
+    boostClock: 1800,
+    tdp: 1000,
+    fp32Performance: 120,
+    fp16Performance: 4500,
+    int8Performance: 9000,
+    price: 45000,
+    cloudProviders: [
+      { name: 'AWS', instanceType: 'p6-b200', pricePerHour: 120.00, availability: ['us-east-1'] },
+      { name: 'Azure', instanceType: 'ND GB200 v6', pricePerHour: 115.00, availability: ['East US 2'] }
+    ]
+  },
+  {
+    id: 'h200',
+    name: 'H200 SXM',
+    manufacturer: 'NVIDIA',
+    memory: 141,
+    memoryBandwidth: 4800,
+    computeUnits: 132,
+    baseClock: 1400,
+    boostClock: 1830,
+    tdp: 700,
+    fp32Performance: 67,
+    fp16Performance: 3958,
+    int8Performance: 7916,
+    price: 35000,
+    cloudProviders: [
+      { name: 'AWS', instanceType: 'p5e.48xlarge', pricePerHour: 109.00, availability: ['us-east-1', 'us-west-2'] },
+      { name: 'GCP', instanceType: 'a3-ultragpu-8g', pricePerHour: 44.80, availability: ['us-central1'] },
+      { name: 'Azure', instanceType: 'ND H200 v5', pricePerHour: 49.60, availability: ['East US 2'] }
+    ]
+  },
+  {
     id: 'h100',
     name: 'H100 SXM',
     manufacturer: 'NVIDIA',
@@ -42,21 +81,22 @@ export const gpuDatabase: GPUSpec[] = [
     ]
   },
   {
-    id: 'v100',
-    name: 'V100 SXM2 32GB',
+    id: 'l40s',
+    name: 'L40S',
     manufacturer: 'NVIDIA',
-    memory: 32,
-    memoryBandwidth: 900,
-    computeUnits: 84,
-    baseClock: 1530,
-    boostClock: 1890,
+    memory: 48,
+    memoryBandwidth: 864,
+    computeUnits: 142,
+    baseClock: 1980,
+    boostClock: 2520,
     tdp: 350,
-    fp32Performance: 15.7,
-    fp16Performance: 125,
-    price: 8000,
+    fp32Performance: 91.6,
+    fp16Performance: 183,
+    int8Performance: 733,
+    price: 9000,
     cloudProviders: [
-      { name: 'AWS', instanceType: 'p3.16xlarge', pricePerHour: 24.48, availability: ['us-east-1', 'us-west-2'] },
-      { name: 'GCP', instanceType: 'n1-standard-96-v100x8', pricePerHour: 18.48, availability: ['us-central1', 'europe-west1'] }
+      { name: 'AWS', instanceType: 'g6.48xlarge', pricePerHour: 18.24, availability: ['us-east-1', 'us-west-2'] },
+      { name: 'Azure', instanceType: 'NVadsA10_v5', pricePerHour: 16.20, availability: ['East US', 'West Europe'] }
     ]
   },
   {
@@ -77,6 +117,38 @@ export const gpuDatabase: GPUSpec[] = [
 ];
 
 export const tpuDatabase: TPUSpec[] = [
+  {
+    id: 'tpu-v6e',
+    name: 'TPU Trillium (v6e)',
+    generation: 'v6e',
+    memory: 32,
+    memoryBandwidth: 1600,
+    matrixUnits: 2,
+    fp32Performance: 360,
+    bf16Performance: 720,
+    int8Performance: 1440,
+    interconnectBandwidth: 400,
+    price: 3.20,
+    cloudProviders: [
+      { name: 'GCP', instanceType: 'ct6e-standard-4t', pricePerHour: 12.80, availability: ['us-central1'] }
+    ]
+  },
+  {
+    id: 'tpu-v5p',
+    name: 'TPU v5p',
+    generation: 'v5p',
+    memory: 95,
+    memoryBandwidth: 2765,
+    matrixUnits: 2,
+    fp32Performance: 459,
+    bf16Performance: 918,
+    int8Performance: 1836,
+    interconnectBandwidth: 450,
+    price: 4.20,
+    cloudProviders: [
+      { name: 'GCP', instanceType: 'ct5p-hightpu-4t', pricePerHour: 16.80, availability: ['us-central1', 'europe-west4'] }
+    ]
+  },
   {
     id: 'tpu-v5e',
     name: 'TPU v5e',
@@ -108,26 +180,49 @@ export const tpuDatabase: TPUSpec[] = [
     cloudProviders: [
       { name: 'GCP', instanceType: 'ct4p-hightpu-4t', pricePerHour: 9.60, availability: ['us-central1', 'europe-west4'] }
     ]
-  },
-  {
-    id: 'tpu-v3',
-    name: 'TPU v3',
-    generation: 'v3',
-    memory: 16,
-    memoryBandwidth: 900,
-    matrixUnits: 2,
-    fp32Performance: 123,
-    bf16Performance: 420,
-    int8Performance: 840,
-    interconnectBandwidth: 100,
-    price: 1.35,
-    cloudProviders: [
-      { name: 'GCP', instanceType: 'v3-8', pricePerHour: 2.40, availability: ['us-central1', 'europe-west1'] }
-    ]
   }
 ];
 
 export const ptuDatabase: PTUSpec[] = [
+  {
+    id: 'gpt-4.1',
+    name: 'GPT-4.1',
+    modelType: 'GPT-4.1',
+    version: '2025-01',
+    contextLength: 128000,
+    ptuCapacity: 100,
+    tokensPerMinute: 55000,
+    maxTokensPerRequest: 32768,
+    pricePerPTUPerHour: 19.50,
+    regions: ['East US 2', 'West Europe', 'Sweden Central'],
+    features: ['Function Calling', 'JSON Mode', 'Structured Outputs', 'Vision']
+  },
+  {
+    id: 'gpt-4.1-mini',
+    name: 'GPT-4.1 Mini',
+    modelType: 'GPT-4.1-mini',
+    version: '2025-01',
+    contextLength: 128000,
+    ptuCapacity: 100,
+    tokensPerMinute: 240000,
+    maxTokensPerRequest: 32768,
+    pricePerPTUPerHour: 6.20,
+    regions: ['East US 2', 'West US 3', 'West Europe', 'UK South', 'Sweden Central'],
+    features: ['Function Calling', 'JSON Mode', 'Structured Outputs', 'Vision']
+  },
+  {
+    id: 'o3-mini',
+    name: 'o3-mini',
+    modelType: 'o3-mini',
+    version: '2025-01',
+    contextLength: 200000,
+    ptuCapacity: 100,
+    tokensPerMinute: 90000,
+    maxTokensPerRequest: 65536,
+    pricePerPTUPerHour: 12.00,
+    regions: ['East US 2', 'West Europe', 'UK South'],
+    features: ['Reasoning', 'Function Calling', 'JSON Mode']
+  },
   {
     id: 'gpt-4o',
     name: 'GPT-4o',
@@ -166,31 +261,5 @@ export const ptuDatabase: PTUSpec[] = [
     pricePerPTUPerHour: 36.00,
     regions: ['East US', 'West US', 'West Europe', 'UK South'],
     features: ['Vision', 'Function Calling', 'JSON Mode']
-  },
-  {
-    id: 'gpt-4',
-    name: 'GPT-4',
-    modelType: 'GPT-4',
-    version: '0613',
-    contextLength: 8192,
-    ptuCapacity: 100,
-    tokensPerMinute: 10000,
-    maxTokensPerRequest: 8192,
-    pricePerPTUPerHour: 45.00,
-    regions: ['East US', 'West Europe'],
-    features: ['Function Calling']
-  },
-  {
-    id: 'gpt-35-turbo',
-    name: 'GPT-3.5 Turbo',
-    modelType: 'GPT-3.5-Turbo',
-    version: '0125',
-    contextLength: 16385,
-    ptuCapacity: 100,
-    tokensPerMinute: 120000,
-    maxTokensPerRequest: 4096,
-    pricePerPTUPerHour: 5.00,
-    regions: ['East US', 'West US 2', 'West Europe', 'UK South', 'Australia East', 'Canada East'],
-    features: ['Function Calling', 'JSON Mode']
   }
 ];
