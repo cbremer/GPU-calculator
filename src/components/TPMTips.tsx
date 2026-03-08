@@ -25,7 +25,7 @@ const TPMTips: React.FC = () => {
       <a
         href="https://github.com/cbremer/how-to-use-github"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="inline-flex items-center mt-4 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
       >
         GitHub basics training resource

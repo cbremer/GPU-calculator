@@ -16,7 +16,7 @@ const PTUCard: React.FC<PTUCardProps> = ({ ptu, onSelect, isSelected }) => {
     return num.toLocaleString();
   };
 
-  const getModelColor = (modelType: string) => {
+  const getModelColor = (modelType: PTUSpec['modelType']) => {
     switch (modelType) {
       case 'GPT-4o': return 'text-purple-400';
       case 'GPT-4o-mini': return 'text-blue-400';
