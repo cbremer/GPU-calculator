@@ -28,7 +28,7 @@ const TPMTips: React.FC = () => {
         rel="noreferrer"
         className="inline-flex items-center mt-4 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
       >
-        TPM enablement: How to use GitHub
+        GitHub basics training resource
         <ExternalLink className="h-4 w-4 ml-1" />
       </a>
     </div>
