@@ -4,6 +4,7 @@ import HardwareCard from './components/HardwareCard';
 import PTUCard from './components/PTUCard';
 import Calculator from './components/Calculator';
 import ComparisonTable from './components/ComparisonTable';
+import TPMTips from './components/TPMTips';
 import { gpuDatabase, tpuDatabase, ptuDatabase } from './data/hardware';
 import { GPUSpec, TPUSpec, PTUSpec } from './types/hardware';
 import { Cpu, Zap, BarChart3, Calculator as CalcIcon, Brain } from 'lucide-react';
@@ -132,26 +133,35 @@ function App() {
         </div>
 
         {/* Content */}
+        <div className="mb-6">
+          <div className="bg-slate-800/60 border border-slate-700 rounded-lg p-4 text-sm text-slate-300">
+            Dataset refreshed for current planning assumptions. Validate final pricing and regional availability with cloud providers before launch decisions.
+          </div>
+        </div>
+
         {viewMode === 'browse' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentDatabase.map((hardware) => (
-              activeTab === 'ptu' ? (
-                <PTUCard
-                  key={hardware.id}
-                  ptu={hardware as PTUSpec}
-                  onSelect={handleHardwareSelect}
-                  isSelected={selectedHardware.some(h => h.id === hardware.id)}
-                />
-              ) : (
-                <HardwareCard
-                  key={hardware.id}
-                  hardware={hardware as GPUSpec | TPUSpec}
-                  type={activeTab as 'gpu' | 'tpu'}
-                  onSelect={handleHardwareSelect}
-                  isSelected={selectedHardware.some(h => h.id === hardware.id)}
-                />
-              )
-            ))}
+          <div className="space-y-6">
+            <TPMTips />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentDatabase.map((hardware) => (
+                activeTab === 'ptu' ? (
+                  <PTUCard
+                    key={hardware.id}
+                    ptu={hardware as PTUSpec}
+                    onSelect={handleHardwareSelect}
+                    isSelected={selectedHardware.some(h => h.id === hardware.id)}
+                  />
+                ) : (
+                  <HardwareCard
+                    key={hardware.id}
+                    hardware={hardware as GPUSpec | TPUSpec}
+                    type={activeTab as 'gpu' | 'tpu'}
+                    onSelect={handleHardwareSelect}
+                    isSelected={selectedHardware.some(h => h.id === hardware.id)}
+                  />
+                )
+              ))}
+            </div>
           </div>
         )}
 

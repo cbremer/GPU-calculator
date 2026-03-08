@@ -20,6 +20,9 @@ const PTUCard: React.FC<PTUCardProps> = ({ ptu, onSelect, isSelected }) => {
     switch (modelType) {
       case 'GPT-4o': return 'text-purple-400';
       case 'GPT-4o-mini': return 'text-blue-400';
+      case 'GPT-4.1': return 'text-cyan-400';
+      case 'GPT-4.1-mini': return 'text-emerald-400';
+      case 'o3-mini': return 'text-orange-400';
       case 'GPT-4-Turbo': return 'text-emerald-400';
       case 'GPT-4': return 'text-yellow-400';
       case 'GPT-3.5-Turbo': return 'text-cyan-400';

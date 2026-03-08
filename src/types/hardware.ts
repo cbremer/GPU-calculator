@@ -33,7 +33,7 @@ export interface TPUSpec {
 export interface PTUSpec {
   id: string;
   name: string;
-  modelType: 'GPT-3.5-Turbo' | 'GPT-4' | 'GPT-4-Turbo' | 'GPT-4o' | 'GPT-4o-mini';
+  modelType: 'GPT-3.5-Turbo' | 'GPT-4' | 'GPT-4-Turbo' | 'GPT-4o' | 'GPT-4o-mini' | 'GPT-4.1' | 'GPT-4.1-mini' | 'o3-mini';
   version: string;
   contextLength: number; // tokens
   ptuCapacity: number; // PTUs
